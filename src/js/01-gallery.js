@@ -22,12 +22,6 @@ function createGalleryItems(itemsArr) {
     });
 };
 
-function selectImage(evt) {
-    evt.preventDefault();
-};
-
 createGalleryItems(galleryItems);
-
-divElement.addEventListener('click', selectImage);
 
 var lightbox = new SimpleLightbox('.gallery a', { captionDelay: 250 });
