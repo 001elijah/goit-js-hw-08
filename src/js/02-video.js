@@ -9,16 +9,16 @@ function writeCurrentTime(time) {
 };
 
 
-player.on('timeupdate', function() {
+player.on('timeupdate', _.throttle(function() {
     player.getCurrentTime().then(function(seconds) {
         // seconds = the current playback position
         writeCurrentTime(seconds);
     }).catch(function(error) {
         // an error occurred
     });
-});
+}, 1000));
 
-window.addEventListener('load', player.setCurrentTime(localStorage.getItem(LOCALSTORAGE_KEY) || 0).then(function(seconds) {
+player.setCurrentTime(localStorage.getItem(LOCALSTORAGE_KEY) || 0).then(function(seconds) {
     // seconds = the actual time that the player seeked to
 }).catch(function(error) {
     switch (error.name) {
@@ -30,4 +30,4 @@ window.addEventListener('load', player.setCurrentTime(localStorage.getItem(LOCAL
             // some other error occurred
             break;
     }
-}));
+});
